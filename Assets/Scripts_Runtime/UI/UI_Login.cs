@@ -8,8 +8,12 @@ namespace NumberClicker {
 
         Button btnLogin;
 
-        public void Ctor(Action onStartGameHandle) {
+        public void Ctor() {
             btnLogin = transform.Find("btn_start").GetComponent<Button>();
+            Debug.Assert(btnLogin != null, "btnLogin != null");
+        }
+
+        public void Init(Action onStartGameHandle) {
             btnLogin.onClick.AddListener(() => {
                 onStartGameHandle.Invoke();
             });
