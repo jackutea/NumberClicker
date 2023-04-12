@@ -9,6 +9,15 @@ namespace NumberClicker {
         [SerializeField] LevelTM[] levels;
         public LevelTM[] Levels => levels;
 
+        public bool TryGet(int level, out LevelTM tm) {
+            if (level < 0 || level >= levels.Length) {
+                tm = null;
+                return false;
+            }
+            tm = levels[level];
+            return true;
+        }
+
 #if UNITY_EDITOR
         public void Generate() {
 

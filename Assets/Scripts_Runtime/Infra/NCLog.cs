@@ -8,11 +8,11 @@ namespace NumberClicker {
             Debug.Log(message);
         }
 
-        public static void LogWarning(object message) {
+        public static void Warning(object message) {
             Debug.LogWarning(message);
         }
 
-        public static void LogError(object message) {
+        public static void Error(object message) {
             Debug.LogError(message);
         }
 
