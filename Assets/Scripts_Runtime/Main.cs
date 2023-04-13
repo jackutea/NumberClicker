@@ -49,6 +49,10 @@ namespace NumberClicker {
 
         }
 
+        void Update() {
+            gameManager.Tick();
+        }
+
         void EnterLogin() {
             ui_login.Show();
             ui_levelSelection.Hide();

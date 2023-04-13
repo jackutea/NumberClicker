@@ -1,3 +1,8 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace NumberClicker {
 
     public class GameManager {
@@ -6,6 +11,8 @@ namespace NumberClicker {
         UI_Game ui_game;
 
         LevelEntity levelEntity;
+
+        bool inLevel;
 
         public GameManager() {}
 
@@ -37,6 +44,54 @@ namespace NumberClicker {
 
             ui_game.SetCurrentAnswer(answer);
 
+            inLevel = true;
+
+        }
+
+        KeyCode[] keys = new KeyCode[] {
+            KeyCode.Keypad0,
+            KeyCode.Keypad1,
+            KeyCode.Keypad2,
+            KeyCode.Keypad3,
+            KeyCode.Keypad4,
+            KeyCode.Keypad5,
+            KeyCode.Keypad6,
+            KeyCode.Keypad7,
+            KeyCode.Keypad8,
+            KeyCode.Keypad9,
+        };
+        Dictionary<KeyCode, int> keyMap = new Dictionary<KeyCode, int>(){
+            {KeyCode.Keypad0, 0},
+            {KeyCode.Keypad1, 1},
+            {KeyCode.Keypad2, 2},
+            {KeyCode.Keypad3, 3},
+            {KeyCode.Keypad4, 4},
+            {KeyCode.Keypad5, 5},
+            {KeyCode.Keypad6, 6},
+            {KeyCode.Keypad7, 7},
+            {KeyCode.Keypad8, 8},
+            {KeyCode.Keypad9, 9},
+        };
+
+        public void Tick() {
+
+            if (!inLevel) {
+                return;
+            }
+
+            // Get Input Number
+            KeyCode key = KeyCode.None;
+            for (int i = 0; i < keys.Length; i += 1) {
+                if (Input.GetKeyDown(keys[i])) {
+                    key = keys[i];
+                    break;
+                }
+            }
+            bool has = keyMap.TryGetValue(key, out var number);
+            if (!has) {
+                return;
+            }
+            OnNumberSelected(number);
         }
 
         void OnNumberSelected(int number) {
